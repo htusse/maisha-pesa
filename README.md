@@ -1,70 +1,198 @@
-# Getting Started with Create React App
+# Maisha Pesa - Tenderpreneur Transaction Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Maisha Pesa is a digital platform that connects Contractors, Brokers, Sourcing Agents, Investors, and Clients, with oversight from an Admin. It streamlines tender management from order creation to funding, sourcing, and delivery using a shared revenue model.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Authentication & Role Management** - Users sign up with specific roles (Contractor, Broker, Sourcing Agent, Investor, Client, Admin) and undergo KYC verification by the admin.
+- **Order Lifecycle** - Complete workflow from order creation by brokers, contractor approval, investor bidding, funding, sourcing, and delivery.
+- **Chat System** - Built-in communication between contractors and brokers.
+- **Revenue Share Model** - Automated distribution of revenue after delivery:
+  - Contractor: 20%
+  - Broker: 10%
+  - Investor: 40%
+  - Admin: 30%
+- **Real-time Updates** - Live tracking of order status and updates for all users.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**:
+  - React.js 18.2.0
+  - TailwindCSS 3.4.1
+  - Headless UI 1.7.17
+- **Backend**:
+  - Firebase 10.7.2 (Authentication, Firestore, Storage)
+- **State Management**:
+  - React Context API
+- **Routing**:
+  - React Router 6.21.3
+- **UI/UX**:
+  - React Icons 5.0.1
+  - React Toastify 10.0.4
+- **Utilities**:
+  - date-fns 3.3.1
+  - Lodash 4.17.21
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+```
+maisha-pesa/
+├── src/
+│   ├── components/     # Reusable UI components
+│   │   ├── admin/     # Admin-specific components
+│   │   ├── auth/      # Authentication components 
+│   │   ├── kyc/       # KYC verification components
+│   │   ├── layout/    # Layout components
+│   │   ├── orders/    # Order-related components
+│   │   └── chat/      # Chat components
+│   ├── context/       # React Context providers
+│   ├── firebase/      # Firebase configuration
+│   ├── pages/         # Application routes/pages
+│   └── App.js         # Main application component
+├── public/            # Static assets
+├── tailwind.config.js # Tailwind CSS configuration
+├── postcss.config.js  # PostCSS configuration
+├── firestore.rules    # Firestore security rules
+└── storage.rules      # Storage security rules
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Key Design Principles
 
-### `npm run build`
+1. **Component-Based Architecture**
+   - Modular components organized by feature
+   - Clear separation between pages and components
+   - Reusable UI components for consistency
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **State Management**
+   - React Context API for global state
+   - Separate contexts for auth, orders, and settings
+   - Efficient state updates and subscriptions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Security**
+   - Role-based access control
+   - Firestore security rules
+   - Storage access restrictions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Performance**
+   - Optimized component rendering
+   - Efficient data fetching
+   - Lazy loading for routes
 
-### `npm run eject`
+## Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Node.js (v16 or higher)
+- npm or yarn
+- Firebase account and project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/htusse/maisha-pesa.git
+   cd maisha-pesa
+   ```
 
-## Learn More
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Create a `.env` file in the root directory:
+   ```
+   REACT_APP_FIREBASE_API_KEY=your-api-key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+   REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+   REACT_APP_FIREBASE_APP_ID=your-app-id
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-### Code Splitting
+### Firebase Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Enable required services:
+   - Authentication (Email/Password)
+   - Cloud Firestore
+   - Storage
+3. Set up security rules using the provided `firestore.rules` and `storage.rules`
+4. Add your web app to the Firebase project and copy the configuration
 
-### Analyzing the Bundle Size
+## User Roles & Permissions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Contractor** 
+   - Approves/rejects orders
+   - Communicates with brokers
+   - Revenue share: 20%
 
-### Making a Progressive Web App
+2. **Broker**
+   - Creates and manages orders
+   - Communicates with contractors
+   - Manages investor bids
+   - Revenue share: 10%
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. **Investor**
+   - Places bids on orders
+   - Provides funding
+   - Revenue share: 40%
 
-### Advanced Configuration
+4. **Sourcing Agent**
+   - Manages item sourcing
+   - Handles deliveries
+   - Updates order status
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+5. **Client**
+   - Views order progress
+   - Receives notifications
+   - Confirms deliveries
 
-### Deployment
+6. **Admin**
+   - Manages user verification
+   - Oversees operations
+   - Revenue share: 30%
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Development
 
-### `npm run build` fails to minify
+### Available Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `npm start` - Run development server
+- `npm test` - Run test suite
+- `npm run build` - Create production build
+- `npm run eject` - Eject from Create React App
+
+### Environment Variables
+
+Required environment variables:
+```
+REACT_APP_FIREBASE_API_KEY
+REACT_APP_FIREBASE_AUTH_DOMAIN
+REACT_APP_FIREBASE_PROJECT_ID
+REACT_APP_FIREBASE_STORAGE_BUCKET
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+REACT_APP_FIREBASE_APP_ID
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support, please open an issue in the GitHub repository or contact the development team.
+
+---
+Built with ❤️ using React and Firebase
